@@ -12,13 +12,29 @@ public class Main {
             }
         }
 
-        gameField[1][1] = 1;
-        gameField[5][5] = 5;
-
+        gameField[5][5] = 1;
+        gameField[5][6] = 1;
+        gameField[5][7] = 1;
 
 
 
         printGameField(gameField);
+
+
+        int[][] gameFieldUpdate = new int[gameField.length][gameField.length];
+
+        for (int c = 0 ; c < gameField.length ; c++){
+            for (int r = 0 ; r < gameField.length ; r++){
+
+                gameFieldUpdate[c][r] = 0;
+
+            }
+        }
+
+
+
+
+
 
         int nachbarn;
 
@@ -41,7 +57,31 @@ public class Main {
 
                 nachbarn -= gameField[c][r];
 
-                System.out.print(nachbarn);
+
+                if (gameField[c][r] == 1){
+
+                    if (nachbarn == 2 || nachbarn == 3){
+                        gameFieldUpdate[c][r] = 1;
+                    }
+                    else if (nachbarn < 2){
+                        gameFieldUpdate[c][r] = 0;
+                    }
+                    else if (nachbarn > 3){
+                        gameFieldUpdate[c][r] = 0;
+                    }
+                }
+                else if (gameField[c][r] == 0){
+
+                    if (nachbarn == 3){
+                        gameFieldUpdate[c][r] = 1;
+                    }
+                    else {
+                        gameFieldUpdate[c][r] = 0;
+                    }
+
+                }
+
+
 
 
 
@@ -49,8 +89,19 @@ public class Main {
             }
         }
 
+        for (int c = 0 ; c < gameField.length ; c++){
+            for (int r = 0 ; r < gameField.length ; r++){
 
 
+                gameField[c][r] = gameFieldUpdate[c][r];
+
+            }
+        }
+
+
+
+
+        printGameField(gameField);
 
 
 
