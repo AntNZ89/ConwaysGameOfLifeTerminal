@@ -1,25 +1,25 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
 
 
-        int[][] gameField = new int[10][10];
-
-        for (int c = 0 ; c < gameField.length ; c++){
-            for (int r = 0 ; r < gameField.length ; r++){
-
-                gameField[c][r] = 0;
-
-            }
-        }
-
-        gameField[5][5] = 1;
-        gameField[5][6] = 1;
-        gameField[5][7] = 1;
+        int[][] gameField = initialize();
 
 
+
+        playGame(gameField);
+
+
+
+
+    }
+
+
+
+    public static void playGame(int[][] gameField){
 
         printGameField(gameField);
-
 
         int[][] gameFieldUpdate = new int[gameField.length][gameField.length];
 
@@ -31,13 +31,7 @@ public class Main {
             }
         }
 
-
-
-
-
-
         int nachbarn;
-
 
         for (int c = 0 ; c < gameField.length ; c++){
             for (int r = 0 ; r < gameField.length ; r++){
@@ -47,16 +41,12 @@ public class Main {
                 for (int x = Math.max(c-1,0) ; x <= Math.min(c+1, gameField.length-1) ; x++){
                     for (int y = Math.max(r-1,0); y <= Math.min(r+1, gameField.length-1) ; y++){
 
-
                         nachbarn += gameField[x][y];
-
-
 
                     }
                 }
 
                 nachbarn -= gameField[c][r];
-
 
                 if (gameField[c][r] == 1){
 
@@ -78,38 +68,28 @@ public class Main {
                     else {
                         gameFieldUpdate[c][r] = 0;
                     }
-
                 }
-
-
-
-
-
-
             }
         }
 
         for (int c = 0 ; c < gameField.length ; c++){
             for (int r = 0 ; r < gameField.length ; r++){
 
-
                 gameField[c][r] = gameFieldUpdate[c][r];
 
             }
         }
 
-
-
-
         printGameField(gameField);
 
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Do you want to continue? y/n");
+        String answer = scanner.next();
 
-
-
-
+        if (answer.toUpperCase().equals("Y")){
+            playGame(gameField);
+        }
     }
-
-
 
 
 
@@ -134,17 +114,28 @@ public class Main {
 
     }
 
+    public static int[][] initialize(){
 
 
+        int[][] gameField = new int[10][10];
+
+        for (int c = 0 ; c < gameField.length ; c++){
+            for (int r = 0 ; r < gameField.length ; r++){
+
+                gameField[c][r] = 0;
+
+            }
+        }
+
+        gameField[1][4] = 1;
+        gameField[2][4] = 1;
+        gameField[3][4] = 1;
 
 
+        return gameField;
 
 
-
-
-
-
-
+    }
 
 
 
